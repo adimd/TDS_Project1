@@ -71,7 +71,7 @@ jobs:
       - name: Set second task description
         id: task2
         run: |
-          echo "TASK_DESCRIPTION=Sort the array of contacts in /data/contacts.json by last_name, then first_name, and write the result to /data/contacts-sorted.json" >> $GITHUB_ENV
+          echo "TASK_DESCRIPTION=Write the first line of the 10 most recent .log file in /data/logs/ to /data/logs-recent.txt, most recent first" >> $GITHUB_ENV
 
       # Step 10: Run the Docker container with the second task description
       - name: Run Docker container for second task
