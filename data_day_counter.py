@@ -28,7 +28,7 @@ def count_weekday(parameters):
         "saturday": 5,
         "sunday": 6
     }
-
+    
     # Convert the input day to lowercase for case-insensitive comparison
     day_lower = day.lower()
 
