@@ -48,7 +48,7 @@ jobs:
           docker logs my-container
 
           # Send a request to the Flask server (example)
-          curl http://localhost:5000/run?task="${{ env.TASK_DESCRIPTION }}"
+          curl -G http://localhost:5000/run --data-urlencode "task=${{ env.TASK_DESCRIPTION }}"
 
       # Step 7: Clean up
       - name: Stop and remove container
