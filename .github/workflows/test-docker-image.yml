@@ -38,7 +38,7 @@ jobs:
           docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" adithyamd2397/project1:tagname
           sleep 10  # Wait for the container to start
 
-      # Step 6: Test the running container
+ # Step 6: Test the running container
       - name: Test container
         run: |
           # Check if the container is running
@@ -47,8 +47,15 @@ jobs:
           # View logs (optional)
           docker logs my-container
 
-          # Send a request to the Flask server (example)
-          curl -G http://localhost:5000/run --data-urlencode "task=${{ env.TASK_DESCRIPTION }}"
+          # Send a request to the Flask server and capture the output
+          echo "Sending request to Flask server..."
+          RESPONSE=$(curl -G -v http://localhost:5000/run --data-urlencode "task=${{ env.TASK_DESCRIPTION }}")
+          echo "Response from server:"
+          echo "$RESPONSE"
+
+          # Optionally, print the HTTP status code
+          HTTP_STATUS=$(curl -G -o /dev/null -w "%{http_code}" http://localhost:5000/run --data-urlencode "task=${{ env.TASK_DESCRIPTION }}")
+          echo "HTTP Status Code: $HTTP_STATUS"
 
       # Step 7: Clean up
       - name: Stop and remove container
