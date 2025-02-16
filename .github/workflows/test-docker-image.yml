@@ -113,7 +113,7 @@ jobs:
       - name: Read comments-similar.txt
         run: |
           echo "Reading contents of /data/comments-similar.txt..."
-          docker run --rm -v my-data-volume:/data alpine cat /data/comments-similar.txt
+          docker run --rm -v my-data-volume:/data alpine cat /data/info.txt
 
       # Step 15: Clean up Docker volume
       - name: Remove Docker volume
