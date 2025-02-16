@@ -1,0 +1,59 @@
+name: Test Docker Hub Image
+
+on:
+  push:
+    branches:
+      - master  # Trigger on pushes to the main branch
+  pull_request:
+    branches:
+      - master  # Trigger on pull requests to the main branch
+
+jobs:
+  test-docker-image:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      # Step 1: Check out the repository (optional if you only need the Docker image)
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Docker
+      - name: Set up Docker
+        id: docker
+        uses: docker/setup-buildx-action@v2
+
+      # Step 3: Log in to Docker Hub (optional if the image is public)
+      - name: Log in to Docker Hub
+        if: github.event_name != 'pull_request'  # Skip for pull requests
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      # Step 4: Pull the Docker image from Docker Hub
+      - name: Pull Docker image
+        run: docker pull adithyamd2397/project1:latest
+
+      # Step 5: Run the Docker container
+      - name: Run Docker container
+        run: |
+          docker run -d --name my-container -p 5000:5000 adithyamd2397/project1:latest
+          sleep 10  # Wait for the container to start
+
+      # Step 6: Test the running container
+      - name: Test container
+        run: |
+          # Check if the container is running
+          docker ps
+
+          # View logs (optional)
+          docker logs my-container
+
+          # Send a request to the Flask server (example)
+          curl http://localhost:5000
+
+      # Step 7: Clean up
+      - name: Stop and remove container
+        run: |
+          docker stop my-container
+          docker rm my-container
