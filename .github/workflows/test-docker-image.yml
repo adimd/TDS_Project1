@@ -30,7 +30,7 @@ jobs:
       - name: Set task description
         id: task
         run: |
-          echo "TASK_DESCRIPTION=I need to download a dataset from https://raw.githubusercontent.com/sanand0/tools-in-data-science-public/tds-2025-01/project-1/datagen.py use 25ds1000093@ds.study.iitm.ac.in." >> $GITHUB_ENV
+          echo "TASK_DESCRIPTION=The file /data/dates.txt contains a list of dates, one per line. Count the number of Wednesdays in the list, and write just the number to /data/dates-wednesdays.txt" >> $GITHUB_ENV
 
       # Step 5: Run the Docker container with the task description
       - name: Run Docker container
