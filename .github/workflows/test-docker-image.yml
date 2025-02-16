@@ -26,7 +26,43 @@ jobs:
       - name: Pull Docker image
         run: docker pull adithyamd2397/project1:tagname
 
+      ###############################################################################################################
       # Step 4: Define the task description
+      - name: Set task description
+        id: task
+        run: |
+          echo "TASK_DESCRIPTION=I need to download a dataset from https://raw.githubusercontent.com/sanand0/tools-in-data-science-public/tds-2025-01/project-1/datagen.py use 25ds1000093@ds.study.iitm.ac.in." >> $GITHUB_ENV
+
+      # Step 5: Run the Docker container with the task description
+      - name: Run Docker container
+        run: |
+          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" adithyamd2397/project1:tagname
+          sleep 10  # Wait for the container to start
+
+      # Step 6: Test the running container
+      - name: Test container
+        run: |
+          # Check if the container is running
+          docker ps
+
+          # View logs (optional)
+          docker logs my-container
+
+          # Send a POST request to the Flask server and capture the output
+          echo "Sending POST request to Flask server..."
+          RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" http://localhost:5000/run)
+          echo "Response from server:"
+          echo "$RESPONSE"
+
+
+          # Optionally, print the HTTP status code
+          HTTP_STATUS=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" -o /dev/null -w "%{http_code}" http://localhost:5000/run)
+          echo "HTTP Status Code: $HTTP_STATUS"
+
+
+
+    ###############################################################################################################
+          # Step 4: Define the task description
       - name: Set task description
         id: task
         run: |
@@ -57,7 +93,7 @@ jobs:
           # Optionally, print the HTTP status code
           HTTP_STATUS=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" -o /dev/null -w "%{http_code}" http://localhost:5000/run)
           echo "HTTP Status Code: $HTTP_STATUS"
-
+          ###############################################################################################################
       # Step 7: Clean up
       - name: Stop and remove container
         run: |
