@@ -76,7 +76,7 @@ jobs:
       - name: Set second task description
         id: task2
         run: |
-          echo "TASK_DESCRIPTION=/data/comments.txt contains a list of comments, one per line. Using embeddings, find the most similar pair of comments and write them to /data/comments-similar.txt, one per line" >> $GITHUB_ENV
+          echo "TASK_DESCRIPTION=Fetch information from https://httpbin.org/get and save it in /data/info.txt" >> $GITHUB_ENV
 
       # Step 11: Run the Docker container with the second task description and API key
       - name: Run Docker container for second task
