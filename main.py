@@ -13,7 +13,7 @@ def run_task():
     - If the task description is invalid, returns HTTP 400 Bad Request.
     - If there's an internal error, returns HTTP 500 Internal Server Error.
     """
-    task_description = request.args.get('task')
+    task_description = request.args.get('task') or os.getenv('TASK_DESCRIPTION')
     
     if not task_description:
         return jsonify({"error": "Task description is required"}), 400
