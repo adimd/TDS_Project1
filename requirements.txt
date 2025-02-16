@@ -4,3 +4,4 @@ openai
 pillow>=11.1.0
 faker>=36.1.1
 bs4>=0.0.2
+scipy>=1.13.1

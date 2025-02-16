@@ -6,7 +6,7 @@ import logger
 import Finding_markdown
 # import audio_transcribe
 # import credit_card_extractor
-# import Finding_similar_pairs
+import Finding_similar_pairs
 import Extracting_sender_email
 import sqlite_datamanip
 import unauthorized
@@ -55,9 +55,9 @@ def execute_task(description):
     #     output = credit_card_extractor.extract_credit_card_number(parameters)
     #     return {'task_code': task_code, 'output': output}
     
-    # elif task_code == 'A9':# Done Sorting for both last and first         
-    #     output = Finding_similar_pairs.find_most_similar_comments(parameters)
-    #     return {'task_code': task_code, 'output': output}
+    elif task_code == 'A9':# Done Sorting for both last and first         
+        output = Finding_similar_pairs.find_most_similar_comments(parameters)
+        return {'task_code': task_code, 'output': output}
     
     elif task_code == 'A10':# Done Sorting for both last and first         
         output = sqlite_datamanip.calculate_ticket_sales(parameters)
