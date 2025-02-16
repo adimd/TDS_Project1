@@ -26,21 +26,24 @@ jobs:
       - name: Pull Docker image
         run: docker pull adithyamd2397/project1:tagname
 
-      ###############################################################################################################
-      # Step 4: Define the task description
-      - name: Set task description
-        id: task
+      # Step 4: Create a Docker volume for data persistence
+      - name: Create Docker volume
+        run: docker volume create my-data-volume
+
+      # Step 5: Define the first task description
+      - name: Set first task description
+        id: task1
         run: |
           echo "TASK_DESCRIPTION=I need to download a dataset from https://raw.githubusercontent.com/sanand0/tools-in-data-science-public/tds-2025-01/project-1/datagen.py use 25ds1000093@ds.study.iitm.ac.in." >> $GITHUB_ENV
 
-      # Step 5: Run the Docker container with the task description
-      - name: Run Docker container
+      # Step 6: Run the Docker container with the first task description
+      - name: Run Docker container for first task
         run: |
-          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" adithyamd2397/project1:tagname
+          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" -v my-data-volume:/data adithyamd2397/project1:tagname
           sleep 10  # Wait for the container to start
 
-      # Step 6: Test the running container
-      - name: Test container
+      # Step 7: Test the running container for the first task
+      - name: Test container for first task
         run: |
           # Check if the container is running
           docker ps
@@ -54,48 +57,53 @@ jobs:
           echo "Response from server:"
           echo "$RESPONSE"
 
-
           # Optionally, print the HTTP status code
           HTTP_STATUS=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" -o /dev/null -w "%{http_code}" http://localhost:5000/run)
           echo "HTTP Status Code: $HTTP_STATUS"
 
-
-
-    ###############################################################################################################
-          # Step 4: Define the task description
-      - name: Set task description
-        id: task
-        run: |
-          echo "TASK_DESCRIPTION=The file /data/dates.txt contains a list of dates, one per line. Count the number of Wednesdays in the list, and write just the number to /data/dates-wednesdays.txt" >> $GITHUB_ENV
-
-      # Step 5: Run the Docker container with the task description
-      - name: Run Docker container
-        run: |
-          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" adithyamd2397/project1:tagname
-          sleep 10  # Wait for the container to start
-
-      # Step 6: Test the running container
-      - name: Test container
-        run: |
-          # Check if the container is running
-          docker ps
-
-          # View logs (optional)
-          docker logs my-container
-
-          # Send a POST request to the Flask server and capture the output
-          echo "Sending POST request to Flask server..."
-          RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" http://localhost:5000/run)
-          echo "Response from server:"
-          echo "$RESPONSE"
-
-
-          # Optionally, print the HTTP status code
-          HTTP_STATUS=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" -o /dev/null -w "%{http_code}" http://localhost:5000/run)
-          echo "HTTP Status Code: $HTTP_STATUS"
-          ###############################################################################################################
-      # Step 7: Clean up
-      - name: Stop and remove container
+      # Step 8: Stop and remove the first container
+      - name: Stop and remove first container
         run: |
           docker stop my-container
           docker rm my-container
+
+      # Step 9: Define the second task description
+      - name: Set second task description
+        id: task2
+        run: |
+          echo "TASK_DESCRIPTION=The file /data/dates.txt contains a list of dates, one per line. Count the number of Wednesdays in the list, and write just the number to /data/dates-wednesdays.txt" >> $GITHUB_ENV
+
+      # Step 10: Run the Docker container with the second task description
+      - name: Run Docker container for second task
+        run: |
+          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" -v my-data-volume:/data adithyamd2397/project1:tagname
+          sleep 10  # Wait for the container to start
+
+      # Step 11: Test the running container for the second task
+      - name: Test container for second task
+        run: |
+          # Check if the container is running
+          docker ps
+
+          # View logs (optional)
+          docker logs my-container
+
+          # Send a POST request to the Flask server and capture the output
+          echo "Sending POST request to Flask server..."
+          RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" http://localhost:5000/run)
+          echo "Response from server:"
+          echo "$RESPONSE"
+
+          # Optionally, print the HTTP status code
+          HTTP_STATUS=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" -o /dev/null -w "%{http_code}" http://localhost:5000/run)
+          echo "HTTP Status Code: $HTTP_STATUS"
+
+      # Step 12: Stop and remove the second container
+      - name: Stop and remove second container
+        run: |
+          docker stop my-container
+          docker rm my-container
+
+      # Step 13: Clean up Docker volume
+      - name: Remove Docker volume
+        run: docker volume rm my-data-volume
