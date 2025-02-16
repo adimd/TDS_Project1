@@ -6,7 +6,7 @@ import os
 # api_key = 'eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjI1ZHMxMDAwMDkzQGRzLnN0dWR5LmlpdG0uYWMuaW4ifQ.AgGuNI-SZx0jpgV3s8x8_mHydWqtHJIq9ixAedYJmno'
 
 # Access the API key from the environment variable
-api_key = os.getenv("AIPROXY_TOKEN")
+api_key = os.getenv("API_KEY")
 
 if not api_key:
     raise ValueError("Please set the AIPROXY_TOKEN environment variable.")
