@@ -1,7 +1,7 @@
 import script_executor, llm_processor
 # import data_formatter_prettier
 import data_day_counter
-# import Sort_array_of_contacts
+import Sort_array_of_contacts
 # import logger
 # import audio_transcribe
 # import credit_card_extractor
