@@ -8,7 +8,7 @@ import Finding_markdown
 # import credit_card_extractor
 # import Finding_similar_pairs
 import Extracting_sender_email
-# import sqlite_datamanip
+import sqlite_datamanip
 import unauthorized
 # import fetch_data_api
 # import web_scraper
@@ -59,9 +59,9 @@ def execute_task(description):
     #     output = Finding_similar_pairs.find_most_similar_comments(parameters)
     #     return {'task_code': task_code, 'output': output}
     
-    # elif task_code == 'A10':# Done Sorting for both last and first         
-    #     output = sqlite_datamanip.calculate_ticket_sales(parameters)
-    #     return {'task_code': task_code, 'output': output}
+    elif task_code == 'A10':# Done Sorting for both last and first         
+        output = sqlite_datamanip.calculate_ticket_sales(parameters)
+        return {'task_code': task_code, 'output': output}
     
     elif task_code == 'B1':# Done Sorting for both last and first         
         output = unauthorized.handle_b1_error()

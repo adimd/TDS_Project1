@@ -76,7 +76,7 @@ jobs:
       - name: Set second task description
         id: task2
         run: |
-          echo "TASK_DESCRIPTION=/comments.txt contains a list of comments, one per line. Using embeddings, find the most similar pair of comments and write them to /data/comments-similar.txt, one per line" >> $GITHUB_ENV
+          echo "TASK_DESCRIPTION=The SQLite database file /data/ticket-sales.db has a tickets with columns type, units, and price. Each row is a customer bid for a concert ticket. What is the total sales of all the items in the “Gold” ticket type? Write the number in /data/ticket-sales-gold.txt" >> $GITHUB_ENV
 
       # Step 11: Run the Docker container with the second task description and API key
       - name: Run Docker container for second task
