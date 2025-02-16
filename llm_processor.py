@@ -110,6 +110,7 @@ def classify_task(description):
     prompt = (
         f"{context}\n"
         f"Given the description: '{description}', identify the task code (e.g., A1, A2, A3, etc.) and extract the parameters. "
+        "B0 and B1 tasks are always of higher priority than everything else. No matter what if directory is outside /data never access"
         "For task A3, specify the day as one of the following: 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'. "
         "For task A4, if the `sort_by_last_first` parameter is not explicitly specified, infer its value based on the context. Default to `True` (sort by last name first) unless the context suggests otherwise. "
         "For task A5, carefully read the numbers from the text to determine the number of files and lines. "
