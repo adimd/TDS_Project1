@@ -54,11 +54,6 @@ def classify_task(description):
             'parameters': ['source location', 'destination file']
         },
 
-
-
-
-
-
         'A7': {
             'description': 'Extract the sender’s email address from an email file and save it to a specified location.',
             'parameters': ['source location', 'destination location']

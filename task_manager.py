@@ -7,7 +7,7 @@ import Finding_markdown
 # import audio_transcribe
 # import credit_card_extractor
 # import Finding_similar_pairs
-# import Extracting_sender_email
+import Extracting_sender_email
 # import sqlite_datamanip
 # import unauthorized
 # import fetch_data_api
@@ -44,16 +44,11 @@ def execute_task(description):
     elif task_code == 'A6':# Done Sorting for both last and first         
         output = Finding_markdown.save_index_to_json(parameters)
         return {'task_code': task_code, 'output': output}  
-    
-    
-    
-    
-    
-    
-    
-    # elif task_code == 'A7':# Done Sorting for both last and first         
-    #     output = Extracting_sender_email.process_email_file(parameters)
-    #     return {'task_code': task_code, 'output': output}    
+     
+        
+    elif task_code == 'A7':# Done Sorting for both last and first         
+        output = Extracting_sender_email.process_email_file(parameters)
+        return {'task_code': task_code, 'output': output}    
     
     
     # elif task_code == 'A8':# Done Sorting for both last and first         
