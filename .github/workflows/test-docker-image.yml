@@ -24,7 +24,7 @@ jobs:
 
       # Step 3: Pull the Docker image from Docker Hub
       - name: Pull Docker image
-        run: docker pull adithyamd2397/project1:tagname
+        run: docker pull adithyamd2397/project1:latest
 
       # Step 4: Create a Docker volume for data persistence
       - name: Create Docker volume
@@ -39,7 +39,7 @@ jobs:
       # Step 6: Run the Docker container with the first task description
       - name: Run Docker container for first task
         run: |
-          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" -v my-data-volume:/data adithyamd2397/project1:tagname
+          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" -v my-data-volume:/data adithyamd2397/project1:latest
           sleep 10  # Wait for the container to start
 
       # Step 7: Test the running container for the first task
@@ -76,7 +76,7 @@ jobs:
       # Step 10: Run the Docker container with the second task description
       - name: Run Docker container for second task
         run: |
-          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" -v my-data-volume:/data adithyamd2397/project1:tagname
+          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" -v my-data-volume:/data adithyamd2397/project1:latest
           sleep 10  # Wait for the container to start
 
       # Step 11: Test the running container for the second task
