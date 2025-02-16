@@ -13,7 +13,9 @@ def run_task():
     - If the task description is invalid, returns HTTP 400 Bad Request.
     - If there's an internal error, returns HTTP 500 Internal Server Error.
     """
+   
     task_description = request.args.get('task')
+    
     
     # Validate the task description
     if not task_description:
