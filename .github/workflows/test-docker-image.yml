@@ -26,40 +26,45 @@ jobs:
       - name: Pull Docker image
         run: docker pull adithyamd2397/project1:tagname
 
-      # Step 4: Define the task description
-      - name: Set task description
-        id: task
+      # Step 4: Define multiple task descriptions
+      - name: Set task descriptions
+        id: tasks
         run: |
-          echo "TASK_DESCRIPTION=The file /data/dates.txt contains a list of dates, each on a new line. Your task is to count the number of Wednesdays in the list and write only the count (as a number) to a new file named /data/dates-wednesdays.txt." >> $GITHUB_ENV
+          echo "TASK_DESCRIPTIONS=(
+            'The file /data/dates.txt contains a list of dates, each on a new line. Your task is to count the number of Wednesdays in the list and write only the count (as a number) to a new file named /data/dates-wednesdays.txt.'
+            'The file /data/numbers.txt contains a list of numbers, each on a new line. Your task is to calculate the sum of all numbers and write the result to a new file named /data/numbers-sum.txt.'
+            'The file /data/names.txt contains a list of names, each on a new line. Your task is to sort the names alphabetically and write the sorted list to a new file named /data/names-sorted.txt.'
+          )" >> $GITHUB_ENV
 
-      # Step 5: Run the Docker container with the task description
-      - name: Run Docker container
+      # Step 5: Loop through each task description and run the Docker container
+      - name: Run Docker container for each task
         run: |
-          docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="${{ env.TASK_DESCRIPTION }}" adithyamd2397/project1:tagname
-          sleep 10  # Wait for the container to start
+          for TASK_DESCRIPTION in "${TASK_DESCRIPTIONS[@]}"; do
+            echo "Running task: $TASK_DESCRIPTION"
 
-      # Step 6: Test the running container
-      - name: Test container
-        run: |
-          # Check if the container is running
-          docker ps
+            # Run the Docker container with the current task description
+            docker run -d --name my-container -p 5000:5000 -e TASK_DESCRIPTION="$TASK_DESCRIPTION" adithyamd2397/project1:tagname
+            sleep 10  # Wait for the container to start
 
-          # View logs (optional)
-          docker logs my-container
+            # Test the running container
+            echo "Testing container..."
+            docker ps
 
-          # Send a POST request to the Flask server and capture the output
-          echo "Sending POST request to Flask server..."
-          RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" http://localhost:5000/run)
-          echo "Response from server:"
-          echo "$RESPONSE"
+            # View logs (optional)
+            docker logs my-container
 
+            # Send a POST request to the Flask server and capture the output
+            echo "Sending POST request to Flask server..."
+            RESPONSE=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"$TASK_DESCRIPTION\"}" http://localhost:5000/run)
+            echo "Response from server:"
+            echo "$RESPONSE"
 
-          # Optionally, print the HTTP status code
-          HTTP_STATUS=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"${{ env.TASK_DESCRIPTION }}\"}" -o /dev/null -w "%{http_code}" http://localhost:5000/run)
-          echo "HTTP Status Code: $HTTP_STATUS"
+            # Optionally, print the HTTP status code
+            HTTP_STATUS=$(curl -X POST -H "Content-Type: application/json" -d "{\"task\": \"$TASK_DESCRIPTION\"}" -o /dev/null -w "%{http_code}" http://localhost:5000/run)
+            echo "HTTP Status Code: $HTTP_STATUS"
 
-      # Step 7: Clean up
-      - name: Stop and remove container
-        run: |
-          docker stop my-container
-          docker rm my-container
+            # Stop and remove the container
+            echo "Stopping and removing container..."
+            docker stop my-container
+            docker rm my-container
+          done
