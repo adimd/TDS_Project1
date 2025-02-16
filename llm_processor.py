@@ -82,8 +82,8 @@ def classify_task(description):
     'parameters': []
 },
         'B3': {
-            'description': 'Fetch data from a specified API and save the results to a specified location. If the API URL is not provided, use a default API endpoint.',
-            'parameters': ['API URL', 'destination location']
+            'description': 'Fetch data from a specified API and save the results to a specified location. If the destination file is not provided, use a default file /data/info.txt.',
+            'parameters': ['API URL', 'destination file']
         },
         'B6': {
             'description': 'Scrape a website and look for the selectors if mentioned or else return None and also ensure that there is a destination location and it is within constraints',

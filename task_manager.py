@@ -10,7 +10,7 @@ import Finding_similar_pairs
 import Extracting_sender_email
 import sqlite_datamanip
 import unauthorized
-# import fetch_data_api
+import fetch_data_api
 # import web_scraper
 # import image_resizer
 
@@ -71,9 +71,9 @@ def execute_task(description):
         output = unauthorized.handle_b2_error()
         return {'task_code': task_code, 'output': output}
     
-    # elif task_code == 'B3':# Done Sorting for both last and first         
-    #     output = fetch_data_api.fetch_and_save_data(parameters)
-    #     return {'task_code': task_code, 'output': output}
+    elif task_code == 'B3':# Done Sorting for both last and first         
+        output = fetch_data_api.fetch_and_save_data(parameters)
+        return {'task_code': task_code, 'output': output}
     
 
     # elif task_code == 'B6':# Done Sorting for both last and first         
