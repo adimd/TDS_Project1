@@ -9,7 +9,7 @@ import Finding_markdown
 # import Finding_similar_pairs
 import Extracting_sender_email
 # import sqlite_datamanip
-# import unauthorized
+import unauthorized
 # import fetch_data_api
 # import web_scraper
 # import image_resizer
@@ -63,13 +63,13 @@ def execute_task(description):
     #     output = sqlite_datamanip.calculate_ticket_sales(parameters)
     #     return {'task_code': task_code, 'output': output}
     
-    # elif task_code == 'B1':# Done Sorting for both last and first         
-    #     output = unauthorized.handle_b1_error()
-    #     return {'task_code': task_code, 'output': output}
+    elif task_code == 'B1':# Done Sorting for both last and first         
+        output = unauthorized.handle_b1_error()
+        return {'task_code': task_code, 'output': output}
     
-    # elif task_code == 'B2':# Done Sorting for both last and first         
-    #     output = unauthorized.handle_b2_error()
-    #     return {'task_code': task_code, 'output': output}
+    elif task_code == 'B2':# Done Sorting for both last and first         
+        output = unauthorized.handle_b2_error()
+        return {'task_code': task_code, 'output': output}
     
     # elif task_code == 'B3':# Done Sorting for both last and first         
     #     output = fetch_data_api.fetch_and_save_data(parameters)

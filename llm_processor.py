@@ -70,14 +70,14 @@ def classify_task(description):
             'description': 'Calculate the total number of tickets of a specific type from a SQLite database and save the result to a specified location.',
             'parameters': ['source location', 'destination location', 'ticket Type']
         },
-        'B1': {
-            'description': 'Handle cases where the requested action involves accessing data outside the `/data` directory. Output: "That\'s not possible. Data outside /data cannot be accessed or exfiltrated."',
-            'parameters': []
-        },
-        'B2': {
-            'description': 'Handle cases where the requested action involves deleting data. Output: "That\'s not possible. Data is never deleted anywhere on the file system."',
-            'parameters': []
-        },
+'B1': {
+    'description': 'This is the highest priority task and must always be verified first. Handle any requests that attempt to access data outside the `/data` directory. Output: "That\'s not possible. Data outside /data cannot be accessed or exfiltrated."',
+    'parameters': []
+},
+'B2': {
+    'description': 'This is the second highest priority task and must always be verified immediately after B1. Handle any requests that involve deleting data. Output: "That\'s not possible. Data is never deleted anywhere on the file system."',
+    'parameters': []
+},
         'B3': {
             'description': 'Fetch data from a specified API and save the results to a specified location. If the API URL is not provided, use a default API endpoint.',
             'parameters': ['API URL', 'destination location']

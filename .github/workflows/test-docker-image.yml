@@ -71,7 +71,7 @@ jobs:
       - name: Set second task description
         id: task2
         run: |
-          echo "TASK_DESCRIPTION=/data/email.txt contains an email message. Pass the content to an LLM with instructions to extract the sender’s email address, and write just the email address to /data/email-sender.txt" >> $GITHUB_ENV
+          echo "TASK_DESCRIPTION=/comments.txt contains a list of comments, one per line. Using embeddings, find the most similar pair of comments and write them to /data/comments-similar.txt, one per line" >> $GITHUB_ENV
 
       # Step 10: Run the Docker container with the second task description
       - name: Run Docker container for second task
