@@ -27,14 +27,14 @@ def execute_task(description):
     #     # Suppose A2 is formatting a document
     #     output = data_formatter_prettier.format_markdown_file()
     #     return {'task_code': task_code, 'output': output}
-    if task_code == 'A3':# Done Parsing for various different days 
+    elif task_code == 'A3':# Done Parsing for various different days 
         
         output = data_day_counter.count_weekday(parameters)
         return {'task_code': task_code, 'output': output}
     
-    # elif task_code == 'A4':# Done Sorting for both last and first         
-    #     output = Sort_array_of_contacts.sort_json(parameters)
-    #     return {'task_code': task_code, 'output': output}
+    elif task_code == 'A4':# Done Sorting for both last and first         
+        output = Sort_array_of_contacts.sort_json(parameters)
+        return {'task_code': task_code, 'output': output}
     
     # elif task_code == 'A5':# Done Sorting for both last and first         
     #     output = logger.write_recent_logs_first_lines(parameters)

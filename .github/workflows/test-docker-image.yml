@@ -71,7 +71,7 @@ jobs:
       - name: Set second task description
         id: task2
         run: |
-          echo "TASK_DESCRIPTION=The file /data/dates.txt contains a list of dates, one per line. Count the number of Wednesdays in the list, and write just the number to /data/dates-wednesdays.txt" >> $GITHUB_ENV
+          echo "TASK_DESCRIPTION=Sort the array of contacts in /data/contacts.json by last_name, then first_name, and write the result to /data/contacts-sorted.json" >> $GITHUB_ENV
 
       # Step 10: Run the Docker container with the second task description
       - name: Run Docker container for second task
