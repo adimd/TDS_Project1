@@ -9,6 +9,7 @@ def parse_date(date_str):
             continue
     raise ValueError(f"Date format not supported: {date_str}")
 
+
 def count_weekday(parameters):
     """
     Count the occurrences of a specific weekday in the dates from the source file.
