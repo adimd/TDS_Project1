@@ -3,6 +3,7 @@ import script_executor, llm_processor
 import data_day_counter
 import Sort_array_of_contacts
 import logger
+import Finding_markdown
 # import audio_transcribe
 # import credit_card_extractor
 # import Finding_similar_pairs
@@ -39,6 +40,10 @@ def execute_task(description):
     elif task_code == 'A5':# Done Sorting for both last and first         
         output = logger.write_recent_logs_first_lines(parameters)
         return {'task_code': task_code, 'output': output}
+    
+    elif task_code == 'A6':# Done Sorting for both last and first         
+        output = Finding_markdown.save_index_to_json(parameters)
+        return {'task_code': task_code, 'output': output}  
     
     
     

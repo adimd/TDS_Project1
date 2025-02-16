@@ -49,6 +49,16 @@ def classify_task(description):
             'description': 'Copy or log a specified number of log files, including a defined number of lines from each file.',
             'parameters': ['source location', 'destination location', 'Number of Files', 'Number of Lines']
         },
+        'A6': {
+            'description': 'Search for all Markdown (.md) files within the /data directory. Extract the first occurrence of any H1 headings (lines that begin with \'#\') from each file. Create an index file named index.json that maps each filename to its corresponding H1 heading. The location of the index file and any destination files can differ within the /data directory.',
+            'parameters': ['source location', 'destination file']
+        },
+
+
+
+
+
+
         'A7': {
             'description': 'Extract the sender’s email address from an email file and save it to a specified location.',
             'parameters': ['source location', 'destination location']
